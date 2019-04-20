@@ -62,7 +62,7 @@ stopTimer:
 
 
 @@ Parameters: (r0, numerator), (r1, denominator)
-@@ Comments: Do not use unless you have good reasons to. Swi 0x6000 might be better.
+@@ Comments: Do not use unless you have good reasons to. Swi 0x6000 is propabily faster otherwise.
 @@ TODO: Use inline assembly
 @@ Return: (r0, result)
 .section .iwram, "ax", %progbits

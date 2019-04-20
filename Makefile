@@ -28,7 +28,7 @@ include $(DEVKITARM)/gba_rules
 TARGET		?= $(notdir $(CURDIR))
 BUILD		:= build
 SOURCES 	:= $(shell test -d ./source && find ./source -type f -print | sed -r 's|/[^/]+$$||' |sort |uniq)
-INCLUDES	:= $(shell test -d ./include && find ./include -type f -print | sed -r 's|/[^/]+$$||' |sort |uniq)
+INCLUDES	:= $(shell test -d ./include && find ./include -type f -print | sed -r 's|/[^/]+$$||' |sort |uniq) ./include
 DATA		:= $(shell test -d ./data && find ./data -type f -print | sed -r 's|/[^/]+$$||' |sort |uniq)
 MUSIC		:= $(shell test -d ./data && find ./data -type f -print | sed -r 's|/[^/]+$$||' |sort |uniq)
 

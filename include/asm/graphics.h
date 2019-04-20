@@ -1,6 +1,6 @@
 #pragma once
-#include "./delcs.h"
-#include "./types.h"
+#include "delcs.h"
+#include "types.h"
 
 // The buffer in RAM memory that functions as a graphics buffer in mode 3 dubble buffering.
 #if GRAPHICS_MODE == 3 && DUBBLE_BUFFER == 1
