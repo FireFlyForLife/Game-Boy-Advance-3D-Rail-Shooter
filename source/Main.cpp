@@ -4,7 +4,10 @@
 #include "../include/asm/gameObject.h"
 #include "../include/objModel.h"
 #include "../include/objModelGM.h"
+#include "raycaster/raycaster.h"
+
 #define ENABLE_RAYCASTER 1
+
 
 // 1, 8x8 sprite per row.
 const unsigned short PLANE_SPRITES[] = {
@@ -49,24 +52,14 @@ unsigned short* OAM_MEM =(unsigned short*)0x7000000;	//setup a pointer to OBJ me
 int main(void)
 {
 #if ENABLE_RAYCASTER
-    initGraphics();
-
-    OAM_MEM[0] = COLOR_256 | SIZE_16 | 50; // 256 color mode. Height: 16 pixels. Ypos: 50
-	OAM_MEM[1] = SIZE_32 | 110;	// Width: 32 pixels. Xpos: 110.
-	OAM_MEM[2] = 512 + 0; // Tile number, starting at 512 because bitmap mode is used.
-    OAM_MEM[3] = 0; // Filler
-
-    u32 clrScreenColor = 0xFFFFFFFF;
+    raycaster_init();
 
     while(true) {
-        g_GraphicsAddr = startDraw(g_GraphicsAddr);
-        noCashStartTimer();
-        clearScr(g_GraphicsAddr, (u32)(&clrScreenColor), 0);
-        noCashStopTimer();
         keyPoll();
-
-        drawVertLine(g_GraphicsAddr, 100, 0, 150, 0xFF00FFFF);
+        raycaster_render();
     }
+
+    raycaster_cleanup();
 #else
 
     pushGameObject(8, 9, 10, 11, (u32)(updateEnemy));

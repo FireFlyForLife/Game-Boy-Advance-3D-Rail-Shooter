@@ -8,3 +8,5 @@ typedef          short      s16;
 typedef unsigned short      u16;
 typedef          char       s8;
 typedef unsigned char       u8;
+
+typedef volatile unsigned short vu16;

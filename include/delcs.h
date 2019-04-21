@@ -1,4 +1,4 @@
-#define GRAPHICS_MODE 3
+#define GRAPHICS_MODE 5
 
 #define ADDR_EWRAM  0x2000000
 #define ADDR_IWRAM  0x3000000
@@ -11,7 +11,7 @@
 
 //GENERAL
 #define PREPROCESSED_DATA 0
-#define LUT_DIVISION_SIGNED_FIX 0 // Fixes an issues where / 1 or / 2 with the lut is incorrect at the cost of 3 more cycles
+#define LUT_DIVISION_SIGNED_FIX 1 // Fixes an issues where / 1 or / 2 with the lut is incorrect at the cost of 3 more cycles
 
 //GRAPHICS
 #if GRAPHICS_MODE == 3
@@ -28,7 +28,7 @@
 
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 160
-#define DUBBLE_BUFFER 0
+#define DUBBLE_BUFFER 1
 #define BPP 2
 #define BPP_POW 1
 

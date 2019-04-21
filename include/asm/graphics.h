@@ -10,11 +10,11 @@ extern "C" u16 GRAPHICS_BUFFER[CANVAS_HEIGHT][CANVAS_WIDTH];
 // The memory address of the start of a buffer where graphics data can be written for rendering to the screen.
 // The initial address changes depending the settings, but the the address can/will also be changed during runtime.
 #if GRAPHICS_MODE == 3 && DUBBLE_BUFFER == 1
-    u32 g_GraphicsAddr = (u32)(&GRAPHICS_BUFFER);
+    static u32 g_GraphicsAddr = (u32)(&GRAPHICS_BUFFER);
 #elif GRAPHICS_MODE == 5 && DUBBLE_BUFFER == 1
-    u32 g_GraphicsAddr = ADDR_VRAM ^ 0xa000;
+    static u32 g_GraphicsAddr = ADDR_VRAM ^ 0xa000;
 #else
-    u32 g_GraphicsAddr = ADDR_VRAM;
+    static u32 g_GraphicsAddr = ADDR_VRAM;
 #endif
 
 // Declerations for the assembly graphics functions.
@@ -134,4 +134,12 @@ static inline void drawTriangle3D(u32 graphicsAddr, s32 x1, s32 y1, s32 z1, s32 
     #elif GRAPHICS_MODE == 5
     m3_drawTriangle3D(graphicsAddr, y1, x1 / 2, z1, y2, x2 / 2, z2, y3, x3 / 2, z3, color16Addr);
     #endif
+}
+
+#define REG_VCOUNT *(vu16*)0x04000006
+
+static inline void busywait_vsync()
+{
+    while(REG_VCOUNT >= 160);   // wait till VDraw
+    while(REG_VCOUNT < 160);    // wait till VBlank
 }
