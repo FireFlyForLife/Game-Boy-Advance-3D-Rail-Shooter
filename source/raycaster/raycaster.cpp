@@ -34,13 +34,6 @@ extern "C"{
     {
         initGraphics();
 
-        unsigned short* OAM_PTR =(unsigned short*)ADDR_OAM;
-
-        OAM_PTR[0] = COLOR_256 | SIZE_16 | 50; // 256 color mode. Height: 16 pixels. Ypos: 50
-        OAM_PTR[1] = SIZE_32 | 110;	// Width: 32 pixels. Xpos: 110.
-        OAM_PTR[2] = 512 + 0; // Tile number, starting at 512 because bitmap mode is used.
-        OAM_PTR[3] = 0; // Filler
-
         clrScreenColor = 0xFFFFFFFF;
     }
 
@@ -159,14 +152,14 @@ extern "C"{
         //move forward if no wall in front of you
         if (keyIsDown(KEY_UP))
         {
-        if(raycaster_map[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
-        if(raycaster_map[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
+        if(raycaster_map[int(posY)][int(posX + dirX * moveSpeed)] == false) posX += dirX * moveSpeed;
+        if(raycaster_map[int(posY + dirY * moveSpeed)][int(posX)] == false) posY += dirY * moveSpeed;
         }
         //move backwards if no wall behind you
         if (keyIsDown(KEY_DOWN))
         {
-        if(raycaster_map[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
-        if(raycaster_map[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
+        if(raycaster_map[int(posY)][int(posX - dirX * moveSpeed)] == false) posX -= dirX * moveSpeed;
+        if(raycaster_map[int(posY - dirY * moveSpeed)][int(posX)] == false) posY -= dirY * moveSpeed;
         }
         //rotate to the right
         if (keyIsDown(KEY_RIGHT))
